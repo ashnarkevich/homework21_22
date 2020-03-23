@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Items</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-8">
+            <h1>Item with shop.</h1>
+            <div th:insert="menu :: menu"></div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-8">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>name</td>
+                    <td>description</td>
+                    <td>price</td>
+                    <td>shop</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${item.id}" hidden>id</td>
+                    <td th:text="${item.name}">name</td>
+                    <td th:text="${item.description}">description</td>
+                    <td th:text="${item.price}">price</td>
+                    <td th:each="shop : ${item.shops}">
+                        <p th:text="${shop.getName()}"></p>
+                        <p th:text="${shop.getLocation()}"></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>

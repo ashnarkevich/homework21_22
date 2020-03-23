@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Items</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-8">
+            <h1>Items with price.</h1>
+            <div th:insert="menu :: menu"></div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-8">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>№</td>
+                    <td>name</td>
+                    <td>description</td>
+                    <td>price</td>
+                    <td>action</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${items}">
+                    <td th:text="${itemStat.count}">№</td>
+                    <td th:text="${item.id}" hidden>id</td>
+                    <td th:text="${item.name}">name</td>
+                    <td th:text="${item.description}">description</td>
+                    <td th:text="${item.price}">price</td>
+                    <td>
+                        <a href="#" th:href="@{/items/view/{id}(id=${item.id})}">view</a><br/>
+                        <a href="#" th:href="@{/items/delete/{id}(id=${item.id})}">delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>
