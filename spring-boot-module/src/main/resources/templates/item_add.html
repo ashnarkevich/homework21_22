@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Item add</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-8">
+            <h1>Item add.</h1>
+            <div th:insert="menu :: menu"></div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-8 flex-column">
+            <form action="#" th:action="@{/items}" method="post">
+                <input type="text" name="name" class="input-group-text w-100 mt-2 mb-2" placeholder="Enter item name">
+                <input type="text" name="description" class="input-group-text w-100 mt-2 mb-2" placeholder="Enter item description">
+                <input type="text" name="price" class="input-group-text w-100 mt-2 mb-2" placeholder="Enter item price">
+                <option selected>Choose a shop:</option>
+                <select class="custom-select mb-2" name="shopId">
+                    <option class="input-group-text w-100 mt-2 mb-2" th:each="shop:${shops}" th:value="${shop.id}" th:text="${shop.name}">
+                        shop
+                    </option>
+                </select>
+                <button type="submit" class="btn btn-outline-secondary col-3 colConstructorName mb-3">Add</button>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>
