@@ -84,4 +84,21 @@
                                  validate="true"/>
     </changeSet>
 
+    <changeSet id="crateTable-user" author="petrikov05@gmail.com">
+        <createTable tableName="user">
+            <column name="id" type="BIGINT(11)" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="username" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

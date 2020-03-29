@@ -6,10 +6,14 @@ import com.gmail.petrikov05.app.service.model.ShopDTO;
 
 public interface ShopService {
 
-    List<ShopDTO> getShop();
+    List<ShopDTO> getAllShops();
+
+    List<ShopDTO> getShops(Integer page);
 
     ShopDTO add(ShopDTO shop);
 
-    void delete(Long id);
+    Long getQuantityPage();
+
+    List<ShopDTO> findShopsByLocation(String location);
 
 }

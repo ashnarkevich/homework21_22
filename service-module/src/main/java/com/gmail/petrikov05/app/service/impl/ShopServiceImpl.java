@@ -8,7 +8,10 @@ import com.gmail.petrikov05.app.repository.ShopRepository;
 import com.gmail.petrikov05.app.repository.model.Shop;
 import com.gmail.petrikov05.app.service.ShopService;
 import com.gmail.petrikov05.app.service.model.ShopDTO;
+import com.gmail.petrikov05.app.service.util.PageUtil;
 import org.springframework.stereotype.Service;
+
+import static com.gmail.petrikov05.app.service.constant.PageConstant.NUMBER_BY_PAGE;
 
 @Service
 public class ShopServiceImpl implements ShopService {
@@ -18,10 +21,22 @@ public class ShopServiceImpl implements ShopService {
     public ShopServiceImpl(ShopRepository shopRepository) {this.shopRepository = shopRepository;}
 
     @Override
-    public List<ShopDTO> getShop() {
+    @Transactional
+    public List<ShopDTO> getAllShops() {
         List<Shop> shops = shopRepository.findAll();
-        List<ShopDTO> shopsDTO = shops.stream().map(this::convertObjectToDTO).collect(Collectors.toList());
-        return shopsDTO;
+        return shops.stream()
+                .map(this::convertObjectToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public List<ShopDTO> getShops(Integer page) {
+        Integer startPosition = PageUtil.getStarterPosition(page);
+        List<Shop> shops = shopRepository.findWithPagination(startPosition, NUMBER_BY_PAGE);
+        return shops.stream()
+                .map(this::convertObjectToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -34,9 +49,22 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public void delete(Long id) {
-        Shop shop = shopRepository.findById(id);
-        shopRepository.remove(shop);
+    public Long getQuantityPage() {
+        Long quantityRow = shopRepository.getQuantityRow();
+        Long quantityPages = quantityRow / NUMBER_BY_PAGE;
+        if (quantityRow % NUMBER_BY_PAGE != 0) {
+            quantityPages++;
+        }
+        return quantityPages;
+    }
+
+    @Override
+    @Transactional
+    public List<ShopDTO> findShopsByLocation(String location) {
+        List<Shop> shops = shopRepository.getShopsByLocation(location);
+        return shops.stream()
+                .map(this::convertObjectToDTO)
+                .collect(Collectors.toList());
     }
 
     private Shop convertDTOToObject(ShopDTO shopDTO) {

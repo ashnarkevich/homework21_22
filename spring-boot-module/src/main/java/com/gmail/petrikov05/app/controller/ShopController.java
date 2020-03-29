@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/shops")
@@ -22,8 +23,11 @@ public class ShopController {
     public ShopController(ShopService shopService) {this.shopService = shopService;}
 
     @GetMapping
-    public String show(Model model) {
-        List<ShopDTO> shops = shopService.getShop();
+    public String showShopsPage(@RequestParam Integer page, Model model) {
+        Long pages = shopService.getQuantityPage();
+        model.addAttribute("pages", pages);
+        model.addAttribute("page", page);
+        List<ShopDTO> shops = shopService.getShops(page);
         model.addAttribute("shops", shops);
         return "shops";
     }
@@ -33,7 +37,7 @@ public class ShopController {
         return "shop_add";
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public String add(@Valid @ModelAttribute(name = "shop") ShopDTO shop,
             BindingResult bindingResult,
             Model model
@@ -43,7 +47,22 @@ public class ShopController {
             return "shop_add";
         }
         shopService.add(shop);
-        return "redirect:/shops";
+        return "redirect:/home";
+    }
+
+    @PostMapping("/filter")
+    public String getFilteredShops(
+            @RequestParam String location,
+            @RequestParam Integer page,
+            Model model
+    ) {
+        Long pages = shopService.getQuantityPage();
+
+        model.addAttribute("pages", pages);
+        model.addAttribute("page", page);
+        List<ShopDTO> shops = shopService.findShopsByLocation(location);
+        model.addAttribute("shops", shops);
+        return "shops";
     }
 
 }

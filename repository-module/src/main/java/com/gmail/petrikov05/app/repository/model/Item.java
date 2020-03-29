@@ -37,7 +37,7 @@ public class Item {
     @JoinColumn(name = "itemid")
     private ItemDetails itemDetails;
 
-    @ManyToMany(cascade = CascadeType.ALL,
+    @ManyToMany(cascade = CascadeType.PERSIST,
             fetch = FetchType.LAZY)
     @JoinTable(
             name = "item_shop",
