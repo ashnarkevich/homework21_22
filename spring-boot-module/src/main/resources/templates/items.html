@@ -12,7 +12,7 @@
         </div>
         <div class="col-8">
             <h1>Items with price.</h1>
-            <div th:insert="menu :: menu"></div>
+            <div th:insert="fragment :: menu-link"></div>
         </div>
         <div class="col">
         </div>
@@ -21,30 +21,55 @@
         <div class="col">
         </div>
         <div class="col-8">
-            <table class="table">
-                <thead>
-                <tr>
-                    <td>№</td>
-                    <td>name</td>
-                    <td>description</td>
-                    <td>price</td>
-                    <td>action</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item : ${items}">
-                    <td th:text="${itemStat.count}">№</td>
-                    <td th:text="${item.id}" hidden>id</td>
-                    <td th:text="${item.name}">name</td>
-                    <td th:text="${item.description}">description</td>
-                    <td th:text="${item.price}">price</td>
-                    <td>
-                        <a href="#" th:href="@{/items/view/{id}(id=${item.id})}">view</a><br/>
-                        <a href="#" th:href="@{/items/delete/{id}(id=${item.id})}">delete</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div th:if="${pages} > 1">
+                <span th:if="${page} > 1">
+                    <a href="#" th:href="@{/items(page=${page - 1})}">back</a>
+                </span>
+                <span th:text="${page}">page</span>
+                <span th:if="${page} < ${pages}">
+                    <a href="#" th:href="@{/items(page=${page + 1})}">next</a>
+                </span>
+            </div>
+            <form action="#" th:action="@{/items/filter}" method="post">
+                <input type="text" name="name" placeholder="find item by name"/>
+                <input type="text" name="page" th:value="${page}" hidden/>
+                <input type="submit" value="Find"/>
+            </form>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <td>№</td>
+                <td>name</td>
+                <td>description</td>
+                <td>price</td>
+                <td>action</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${itemStat.count}">№</td>
+                <td th:text="${item.name}">name</td>
+                <td th:text="${item.description}">description</td>
+                <td th:text="${item.price}">price</td>
+                <td>
+                    <a href="#" th:href="@{/items/view/{id}(id=${item.id})}">view</a><br/>
+                    <a href="#" th:href="@{/items/delete/{id}(id=${item.id})}">delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+    </div>
+</div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-8">
+            <div th:insert="fragment :: login"></div>
         </div>
         <div class="col">
         </div>

@@ -11,7 +11,7 @@
         <div class="col">
         </div>
         <div class="col-8">
-            <h1>Shops.</h1>
+            <h1>Users.</h1>
             <div th:insert="fragment :: menu-link"></div>
         </div>
         <div class="col">
@@ -21,40 +21,36 @@
         <div class="col">
         </div>
         <div class="col-8">
-            <form action="#" th:action="@{/shops/filter}" method="post">
-                <input type="text" name="location" placeholder="find shop by location"/>
-                <input type="text" name="page" th:value="${page}" hidden/>
-                <input type="submit" value="Find"/>
-            </form>
             <div th:if="${pages} > 1">
                 <span th:if="${page} > 1">
-                    <a href="#" th:href="@{/shops(page=${page - 1})}">back</a>
+                    <a href="#" th:href="@{/users(page=${page - 1})}">back</a>
                 </span>
                 <span th:text="${page}">page</span>
                 <span th:if="${page} < ${pages}">
-                    <a href="#" th:href="@{/shops(page=${page + 1})}">next</a>
+                    <a href="#" th:href="@{/users(page=${page + 1})}">next</a>
                 </span>
             </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>№</td>
+                    <td>name</td>
+                    <td>password</td>
+                    <td>role</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${userStat.count}">№</td>
+                    <td th:text="${user.username}">name</td>
+                    <td th:text="${user.password}">location</td>
+                    <td th:text="${user.role}">role</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <table class="table">
-            <thead>
-            <tr>
-                <td>№</td>
-                <td>name</td>
-                <td>location</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="shop : ${shops}">
-                <td th:text="${shopStat.count}">№</td>
-                <td th:text="${shop.id}" hidden>id</td>
-                <td th:text="${shop.name}">name</td>
-                <td th:text="${shop.location}">location</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col">
+        <div class="col">
+        </div>
     </div>
 </div>
 <div class="container">

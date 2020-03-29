@@ -14,4 +14,8 @@ public interface GenericRepository<I, T> {
 
     List<T> findAll();
 
+    List<T> findWithPagination(Integer startPosition, Integer numberByPage);
+
+    Long getQuantityRow();
+
 }

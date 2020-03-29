@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/items")
@@ -29,20 +30,23 @@ public class ItemController {
     }
 
     @GetMapping
-    public String show(Model model) {
-        List<ItemDTO> items = itemService.getItemList();
+    public String showItemsPage(@RequestParam Integer page, Model model) {
+        model.addAttribute("page", page);
+        Long pages = itemService.getQuantityPage();
+        model.addAttribute("pages", pages);
+        List<ItemDTO> items = itemService.getItems(page);
         model.addAttribute("items", items);
         return "items";
     }
 
     @GetMapping("/add")
     public String showAddPage(Model model) {
-        List<ShopDTO> shops = shopService.getShop();
+        List<ShopDTO> shops = shopService.getAllShops();
         model.addAttribute("shops", shops);
         return "item_add";
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public String add(@Valid @ModelAttribute(name = "item") ItemDTO item,
             BindingResult bindingResult,
             Model model
@@ -52,7 +56,7 @@ public class ItemController {
             return "item_add";
         }
         itemService.add(item);
-        return "redirect:/items";
+        return "redirect:/home";
     }
 
     @GetMapping("/delete/{id}")
@@ -66,6 +70,20 @@ public class ItemController {
         ItemDTO item = itemService.getItem(id);
         model.addAttribute("item", item);
         return "item";
+    }
+
+    @PostMapping("/filter")
+    public String getFilteredShops(
+            @RequestParam String name,
+            @RequestParam Integer page,
+            Model model
+    ) {
+        Long pages = itemService.getQuantityPage();
+        model.addAttribute("pages", pages);
+        model.addAttribute("page", page);
+        List<ItemDTO> items = itemService.findItemsByName(name, page);
+        model.addAttribute("items", items);
+        return "items";
     }
 
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<body>
+
+<div th:fragment="menu-link">
+    <a class="btn btn-outline-secondary col-5 colConstructorName mb-3" href="#" th:href="@{/login}">Log in</a>
+    <a class="btn btn-outline-secondary col-5 colConstructorName mb-3" href="#" th:href="@{/home}">home</a>
+    <a class="btn btn-outline-secondary col-5 colConstructorName mb-3" href="#" th:href="@{/items(page=1)}">Items</a>
+    <a class="btn btn-outline-secondary col-5 colConstructorName mb-3" href="#" th:href="@{/items/add}">Add item</a>
+    <a class="btn btn-outline-secondary col-5 colConstructorName mb-3" href="#" th:href="@{/shops(page=1)}">Shops</a>
+    <a class="btn btn-outline-secondary col-5 colConstructorName mb-3" href="#" th:href="@{/shops/add}">Add shop</a>
+    <a class="btn btn-outline-secondary col-5 colConstructorName mb-3" href="#" th:href="@{/users(page=1)}">Users</a>
+    <a class="btn btn-outline-secondary col-5 colConstructorName mb-3" href="#" th:href="@{/users/add}">Add user</a>
+</div>
+
+<div th:fragment="login">
+    <span sec:authorize="isAuthenticated()">
+        <a th:href="@{/logout}">Sing Out</a>
+    </span>
+</div>
+
+</body>
+</html>

@@ -12,7 +12,7 @@
         </div>
         <div class="col-8">
             <h1>Item with shop.</h1>
-            <div th:insert="menu :: menu"></div>
+            <div th:insert="fragment :: menu-link"></div>
         </div>
         <div class="col">
         </div>
@@ -36,13 +36,26 @@
                     <td th:text="${item.name}">name</td>
                     <td th:text="${item.description}">description</td>
                     <td th:text="${item.price}">price</td>
-                    <td th:each="shop : ${item.shops}">
-                        <p th:text="${shop.getName()}"></p>
-                        <p th:text="${shop.getLocation()}"></p>
+                    <td>
+                        <p th:each="shop : ${item.shops}">
+                            <span th:text="*{shop.name}">name</span>
+                            <span th:text="*{shop.location}">location</span>
+                        </p>
                     </td>
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-8">
+            <div th:insert="fragment :: login"></div>
         </div>
         <div class="col">
         </div>

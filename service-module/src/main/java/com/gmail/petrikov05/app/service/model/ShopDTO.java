@@ -13,9 +13,6 @@ public class ShopDTO {
     @Size(min = 1, max = 255, message = "The field size cannot be more 255")
     private String location;
 
-    public ShopDTO() {
-    }
-
     public String getName() {
         return name;
     }
