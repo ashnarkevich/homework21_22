@@ -11,16 +11,11 @@
         <div class="col">
         </div>
         <div class="col-8">
-            <h1>Users.</h1>
-            <div th:insert="fragment :: menu-link"></div>
-        </div>
-        <div class="col">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-        </div>
-        <div class="col-8">
+            <div>
+                <h1>Users.</h1>
+            </div>
+            <div class="mt-4" th:insert="fragment :: header_main_login"></div>
+            <div th:insert="fragment :: header_menu-link"></div>
             <div th:if="${pages} > 1">
                 <span th:if="${page} > 1">
                     <a href="#" th:href="@{/users(page=${page - 1})}">back</a>
@@ -48,17 +43,6 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="col">
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col">
-        </div>
-        <div class="col-8">
-            <div th:insert="fragment :: login"></div>
         </div>
         <div class="col">
         </div>

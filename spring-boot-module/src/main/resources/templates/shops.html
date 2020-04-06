@@ -11,16 +11,12 @@
         <div class="col">
         </div>
         <div class="col-8">
-            <h1>Shops.</h1>
-            <div th:insert="fragment :: menu-link"></div>
-        </div>
-        <div class="col">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-        </div>
-        <div class="col-8">
+            <div>
+                <h1>Item with shop.</h1>
+            </div>
+            <div class="mt-4" th:insert="fragment :: header_main_login"></div>
+            <div th:insert="fragment :: header_menu-link"></div>
+
             <form action="#" th:action="@{/shops/filter}" method="post">
                 <input type="text" name="location" placeholder="find shop by location"/>
                 <input type="text" name="page" th:value="${page}" hidden/>
@@ -35,34 +31,24 @@
                     <a href="#" th:href="@{/shops(page=${page + 1})}">next</a>
                 </span>
             </div>
-        </div>
-        <table class="table">
-            <thead>
-            <tr>
-                <td>№</td>
-                <td>name</td>
-                <td>location</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="shop : ${shops}">
-                <td th:text="${shopStat.count}">№</td>
-                <td th:text="${shop.id}" hidden>id</td>
-                <td th:text="${shop.name}">name</td>
-                <td th:text="${shop.location}">location</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col">
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col">
-        </div>
-        <div class="col-8">
-            <div th:insert="fragment :: login"></div>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>№</td>
+                    <td>name</td>
+                    <td>location</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="shop : ${shops}">
+                    <td th:text="${shopStat.count}">№</td>
+                    <td th:text="${shop.id}" hidden>id</td>
+                    <td th:text="${shop.name}">name</td>
+                    <td th:text="${shop.location}">location</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         <div class="col">
         </div>

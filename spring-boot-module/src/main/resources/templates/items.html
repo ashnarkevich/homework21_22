@@ -11,16 +11,12 @@
         <div class="col">
         </div>
         <div class="col-8">
-            <h1>Items with price.</h1>
-            <div th:insert="fragment :: menu-link"></div>
-        </div>
-        <div class="col">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-        </div>
-        <div class="col-8">
+            <div>
+                <h1>Items.</h1>
+            </div>
+            <div class="mt-4" th:insert="fragment :: header_main_login"></div>
+            <div th:insert="fragment :: header_menu-link"></div>
+
             <div th:if="${pages} > 1">
                 <span th:if="${page} > 1">
                     <a href="#" th:href="@{/items(page=${page - 1})}">back</a>
@@ -35,41 +31,29 @@
                 <input type="text" name="page" th:value="${page}" hidden/>
                 <input type="submit" value="Find"/>
             </form>
-        </div>
-        <table class="table">
-            <thead>
-            <tr>
-                <td>№</td>
-                <td>name</td>
-                <td>description</td>
-                <td>price</td>
-                <td>action</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item : ${items}">
-                <td th:text="${itemStat.count}">№</td>
-                <td th:text="${item.name}">name</td>
-                <td th:text="${item.description}">description</td>
-                <td th:text="${item.price}">price</td>
-                <td>
-                    <a href="#" th:href="@{/items/view/{id}(id=${item.id})}">view</a><br/>
-                    <a href="#" th:href="@{/items/delete/{id}(id=${item.id})}">delete</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col">
-    </div>
-</div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col">
-        </div>
-        <div class="col-8">
-            <div th:insert="fragment :: login"></div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>№</td>
+                    <td>name</td>
+                    <td>description</td>
+                    <td>price</td>
+                    <td>action</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${items}">
+                    <td th:text="${itemStat.count} + (${page} *10 - 10)">№</td>
+                    <td th:text="${item.name}">name</td>
+                    <td th:text="${item.description}">description</td>
+                    <td th:text="${item.price}">price</td>
+                    <td>
+                        <a href="#" th:href="@{/items/view/{id}(id=${item.id})}">view</a><br/>
+                        <a href="#" th:href="@{/items/delete/{id}(id=${item.id})}">delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         <div class="col">
         </div>

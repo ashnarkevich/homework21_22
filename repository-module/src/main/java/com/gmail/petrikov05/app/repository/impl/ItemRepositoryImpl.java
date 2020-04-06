@@ -13,9 +13,9 @@ public class ItemRepositoryImpl extends GenericRepositoryImpl<Long, Item> implem
     @Override
     @SuppressWarnings("unchecked")
     public List<Item> findItemsByName(String name, Integer startPosition, Integer numberByPage) {
-        String hql ="FROM " + entityClass.getSimpleName() + " i WHERE i.name=:name";
+        String hql ="FROM " + entityClass.getSimpleName() + " i WHERE i.name LIKE :name";
         Query query = entityManager.createQuery(hql);
-        query.setParameter("name", name);
+        query.setParameter("name", "%" + name + "%");
         query.setFirstResult(startPosition);
         query.setMaxResults(numberByPage);
         return (List<Item>) query.getResultList();

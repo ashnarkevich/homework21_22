@@ -12,9 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class AppUser implements UserDetails {
 
     private final List<SimpleGrantedAuthority> authorities;
-    private final User user;
+    private final UserDTO user;
 
-    public AppUser(User user) {
+    public AppUser(UserDTO user) {
         this.user = user;
         this.authorities = Collections.singletonList(
                 new SimpleGrantedAuthority("ROLE_" + user.getRole().name())

@@ -23,7 +23,7 @@ public class ShopController {
     public ShopController(ShopService shopService) {this.shopService = shopService;}
 
     @GetMapping
-    public String showShopsPage(@RequestParam Integer page, Model model) {
+    public String showShopsPage(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
         Long pages = shopService.getQuantityPage();
         model.addAttribute("pages", pages);
         model.addAttribute("page", page);
@@ -47,7 +47,7 @@ public class ShopController {
             return "shop_add";
         }
         shopService.add(shop);
-        return "redirect:/home";
+        return "redirect:/shops";
     }
 
     @PostMapping("/filter")
@@ -57,7 +57,6 @@ public class ShopController {
             Model model
     ) {
         Long pages = shopService.getQuantityPage();
-
         model.addAttribute("pages", pages);
         model.addAttribute("page", page);
         List<ShopDTO> shops = shopService.findShopsByLocation(location);

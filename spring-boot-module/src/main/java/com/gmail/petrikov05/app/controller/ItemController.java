@@ -30,7 +30,7 @@ public class ItemController {
     }
 
     @GetMapping
-    public String showItemsPage(@RequestParam Integer page, Model model) {
+    public String showItemsPage(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
         model.addAttribute("page", page);
         Long pages = itemService.getQuantityPage();
         model.addAttribute("pages", pages);
@@ -56,7 +56,7 @@ public class ItemController {
             return "item_add";
         }
         itemService.add(item);
-        return "redirect:/home";
+        return "redirect:/items";
     }
 
     @GetMapping("/delete/{id}")

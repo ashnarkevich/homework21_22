@@ -3,7 +3,6 @@ package com.gmail.petrikov05.app.service;
 import java.util.List;
 
 import com.gmail.petrikov05.app.repository.constant.RoleEnum;
-import com.gmail.petrikov05.app.repository.model.User;
 import com.gmail.petrikov05.app.service.model.UserDTO;
 
 public interface UserService {
@@ -16,6 +15,6 @@ public interface UserService {
 
     Long getQuantityPage();
 
-    User getUserByUsername(String userName);
+    UserDTO getUserByUsername(String userName);
 
 }

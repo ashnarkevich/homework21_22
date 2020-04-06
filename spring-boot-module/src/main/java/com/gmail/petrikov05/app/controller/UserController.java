@@ -24,7 +24,7 @@ public class UserController {
     public UserController(UserService userService) {this.userService = userService;}
 
     @GetMapping
-    public String showUsersPage(@RequestParam Integer page, Model model) {
+    public String showUsersPage(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
         Long pages = userService.getQuantityPage();
         model.addAttribute("pages", pages);
         model.addAttribute("page", page);

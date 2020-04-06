@@ -10,8 +10,12 @@
     <div class="row">
         <div class="col">
         </div>
-        <div class="col-8 flex-column">
-            <h1>User add.</h1>
+        <div class="col-8">
+            <div>
+                <h1>User add.</h1>
+            </div>
+            <div class="mt-4" th:insert="fragment :: header_main_login"></div>
+            <div th:insert="fragment :: header_menu-link"></div>
             <form action="#" th:action="@{/users/add}" method="post">
                 <input type="text" name="username" class="input-group-text w-100 mt-2 mb-2" placeholder="Enter username">
                 <input type="password" name="password" class="input-group-text w-100 mt-2 mb-2" placeholder="Enter password">

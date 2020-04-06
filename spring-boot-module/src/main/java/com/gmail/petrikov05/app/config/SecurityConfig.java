@@ -32,10 +32,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/items", "/items/add").hasAnyRole(RoleEnum.USER.name())
-                .antMatchers("/shops", "/users" , "/shops/add").hasAnyRole(RoleEnum.ADMIN.name())
-                .antMatchers("/webjars/**").permitAll()
-                .antMatchers("/users/add").not().authenticated()
+                .antMatchers("/login").not().authenticated()
+                .antMatchers("/webjars/**", "/", "/home", "/users/add").permitAll()
+                .antMatchers("/items/**").hasAnyRole(RoleEnum.USER.name())
+                .antMatchers("/shops/**", "/users/**").hasAnyRole(RoleEnum.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
+                .logoutSuccessUrl("/home")
                 .permitAll()
                 .and()
                 .csrf()

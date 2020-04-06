@@ -8,8 +8,12 @@ import com.gmail.petrikov05.app.repository.UserRepository;
 import com.gmail.petrikov05.app.repository.constant.RoleEnum;
 import com.gmail.petrikov05.app.repository.model.User;
 import com.gmail.petrikov05.app.service.UserService;
+import com.gmail.petrikov05.app.service.model.AppUser;
 import com.gmail.petrikov05.app.service.model.UserDTO;
 import com.gmail.petrikov05.app.service.util.PageUtil;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -57,8 +61,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User getUserByUsername(String userName) {
-        return userRepository.findByUserName(userName);
+    public UserDTO getUserByUsername(String userName) {
+        User user = userRepository.findByUserName(userName);
+        if (user != null) {
+            return convertObjectToDTO(user);
+        }
+        return null;
     }
 
     private UserDTO convertObjectToDTO(User user) {
